@@ -1,6 +1,6 @@
 ---
 title: "Tools Overview"
-description: "Birdeye MCP provides 22 read-only tools across 8 categories. All tools use your authenticated Birdeye account context — no business ID parameters needed."
+description: "Birdeye MCP provides a variety of read-only tools across different categories. All tools use your authenticated Birdeye account context"
 ---
 
 ## Tool Categories
@@ -22,7 +22,7 @@ description: "Birdeye MCP provides 22 read-only tools across 8 categories. All t
     AI engine citations, business visibility, accuracy, and SWOT reports
   </Card>
   <Card title="Social" icon="share-nodes" href="/tools/social/track-social-post">
-    Social post tracking and channel performance reports
+    Social performance reports accross multiple channels like Instagram, Facebook, LinkedIn etc.
   </Card>
   <Card title="Ticketing" icon="ticket" href="/tools/ticketing/get-all-ticket-data">
     Ticket retrieval with filtering and pagination
@@ -34,7 +34,7 @@ description: "Birdeye MCP provides 22 read-only tools across 8 categories. All t
 
 ## All Tools
 
-| Tool | Category | Description |
+| Tool | Module | Description |
 |---|---|---|
 | `review_and_rating_overview` | Reviews | Review and rating trends over a time period |
 | `get_reviews` | Reviews | Individual reviews with full details |
@@ -70,14 +70,3 @@ Most tools operate at the **account level** automatically. For tools that requir
 1. get_child_locations          → get list of {id, name} for each location
 2. get_listing(locationId=...)  → use a location id from step 1
 ```
-
-### Date Formats
-
-Different tools use different date formats. Each tool's reference page specifies the exact format required.
-
-| Format | Example | Used by |
-|---|---|---|
-| `MM/DD/YYYY` | `06/26/2026` | Reviews, Social |
-| `yyyy-MM-dd` | `2026-06-26` | Search AI |
-| `MM/dd/yyyy HH:mm:ss` | `06/26/2026 00:00:00` | Surveys |
-| Epoch milliseconds | `1750896000000` | Ticketing |

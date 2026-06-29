@@ -16,10 +16,10 @@ You never need to copy API keys or manage tokens manually.
     Your AI client connects to `https://mcp.birdeye.com/mcp` and discovers the OAuth configuration automatically.
   </Step>
   <Step title="Dynamic client registration">
-    The client registers itself with Birdeye's Auth0-backed identity provider. This happens automatically — no manual setup required.
+    The client registers itself with Birdeye. This happens automatically — no manual setup required.
   </Step>
   <Step title="Browser authorization">
-    You are redirected to a Birdeye-branded login page to sign in and grant access. This only happens once.
+    You are redirected to a Birdeye login page to sign in and grant access.
   </Step>
   <Step title="Token issued">
     After approval, an access token is issued to your AI client. All subsequent MCP requests use this token.
@@ -31,15 +31,11 @@ You never need to copy API keys or manage tokens manually.
 
 ## Authorized Redirect URIs
 
-The following AI clients are pre-authorized for OAuth redirects:
+The ChatGPT and Claude AI clients are pre-authorized for OAuth redirects.
 
-| Client | Redirect URI |
-|---|---|
-| ChatGPT | `https://chatgpt.com/*` |
-| Claude (web) | `https://claude.ai/*` |
-| Claude Desktop | `https://claude.com/*` |
-
-Other MCP clients with their own redirect URIs can still connect — they will be dynamically registered on first use.
+<Warning>
+    If you are using an MCP client other than ChatGPT or Claude, you must register it with Birdeye by providing your redirect URI to Birdeye Support.
+</Warning>
 
 ## Scopes
 
@@ -55,9 +51,9 @@ No write access to your Birdeye account is requested or granted. All tools are *
 
 ## Data Privacy
 
-- All tools are annotated as read-only (`readOnlyHint: true`) — the server never modifies your Birdeye data
+- All tools are annotated as read-only — the server never modifies your Birdeye data
 - Sensitive fields such as reviewer email addresses are automatically filtered from responses
-- OAuth state is encrypted at rest using Fernet symmetric encryption
+- OAuth state is encrypted at rest using symmetric encryption
 
 ## Revoking Access
 

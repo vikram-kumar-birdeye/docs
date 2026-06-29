@@ -13,43 +13,30 @@ Add this URL to your AI client to get started. Choose your client below.
 
 <Tabs>
   <Tab title="Claude (claude.ai)">
-    1. Go to [claude.ai](https://claude.ai) and open **Settings**
-    2. Navigate to **Integrations** → **Add Integration**
-    3. Enter the MCP server URL:
+    1. Go to [claude.ai](https://claude.ai) and open **Customize** tab
+    2. Navigate to **Connectors**
+    3. Click **+** buttion  → choose Add custom connector :
        ```
        https://mcp.birdeye.com/mcp
        ```
-    4. Click **Add** — Claude will initiate the OAuth flow
-    5. Sign in with your Birdeye credentials to authorize access
-    6. Start a new conversation and ask anything about your Birdeye data
-  </Tab>
-  <Tab title="Claude Desktop">
-    Add the following to your Claude Desktop configuration file:
-
-    **Mac**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-    **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-
-    ```json
-    {
-      "mcpServers": {
-        "birdeye": {
-          "url": "https://mcp.birdeye.com/mcp"
-        }
-      }
-    }
-    ```
-
-    Restart Claude Desktop. On first use, you'll be prompted to authorize via Birdeye OAuth.
+    4. Enter **Name** as **Birdeye**
+    5. Enter **Remote MCP server URL** as ``` https://mcp.birdeye.com/mcp ``` and click **Add**
+    6. Click **Connect** — Claude will initiate the OAuth flow
+    7. Sign in with your Birdeye credentials to authorize access
+    8. Start a new conversation and ask anything about your Birdeye data
   </Tab>
   <Tab title="ChatGPT">
     1. Go to [chatgpt.com](https://chatgpt.com) and open **Settings**
-    2. Navigate to **Connectors** → **Add Connector**
-    3. Enter the MCP server URL:
+    2. Navigate to **Apps** → **Create App**
+    3. Enter the Name as **Birdeye**
+    4. Enter the Connection URL:
        ```
        https://mcp.birdeye.com/mcp
        ```
+    5. Choose Authentication as **OAuth**
+    5. Check **I understand and want to continue** button → **Create**
     4. Authorize with your Birdeye credentials
-    5. The Birdeye tools will now be available in your conversations
+    8. Start a new conversation and ask anything about your Birdeye data by Mentioning Birdeye in chat.
   </Tab>
   <Tab title="Other MCP Clients">
     Any client that supports MCP over **Streamable HTTP** can connect to Birdeye.
