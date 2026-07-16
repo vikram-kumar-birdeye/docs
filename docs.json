@@ -14,12 +14,27 @@
         "tab": "Public API",
         "groups": [
           {
-            "group": "Business",
-            "collapsed": true,
+            "group": "Introduction",
             "pages": [
-              "api-reference/business/create-business",
-              "api-reference/business/search-business",
-              "api-reference/business/get-business"
+              "api-reference/introduction",
+              "api-reference/authentication",
+              "api-reference/pagination",
+              "api-reference/http-status-codes",
+              "api-reference/error-response"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              {
+                "group": "Business",
+                "collapsed": true,
+                "pages": [
+                  "api-reference/business/create-business",
+                  "api-reference/business/search-business",
+                  "api-reference/business/get-business"
+                ]
+              }
             ]
           }
         ]
