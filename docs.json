@@ -12,7 +12,16 @@
     "tabs": [
       {
         "tab": "Public API",
-        "openapi": "api-reference/openapi.yaml"
+        "groups": [
+          {
+            "group": "Business",
+            "pages": [
+              "api-reference/business/create-business",
+              "api-reference/business/search-business",
+              "api-reference/business/get-business"
+            ]
+          }
+        ]
       },
       {
         "tab": "Documentation",
