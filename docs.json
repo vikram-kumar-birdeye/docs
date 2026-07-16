@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Birdeye MCP",
+  "name": "Birdeye Developer Portal",
   "colors": {
     "primary": "#007AFF",
     "light": "#3395FF",
@@ -10,6 +10,10 @@
   "favicon": "/images/favicon.svg",
   "navigation": {
     "tabs": [
+      {
+        "tab": "Public API",
+        "openapi": "api-reference/openapi.yaml"
+      },
       {
         "tab": "Documentation",
         "groups": [

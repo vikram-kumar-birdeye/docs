@@ -1,0 +1,487 @@
+openapi: 3.0.3
+info:
+  title: Birdeye Public API
+  version: "1.0"
+  description: |
+    Birdeye helps businesses grow through happy customers. Over 80,000 businesses use Birdeye everyday to attract new leads with Listings, Reviews and Referrals, convert them into customers with Webchat, Appointments, and Payments, and delight those customers with Surveys, Ticketing, and Insights — all in one place.
+
+    The Birdeye APIs are built on HTTP and are RESTful APIs.
+
+    ### Authentication
+
+    All API requests must include the `x-api-key` header. Your API key can be fetched from the Birdeye dashboard.
+
+    > **Important:** Always make API requests from your backend server. Never expose your API key in client-side code.
+
+    ### Pagination
+
+    APIs that support pagination accept `sindex` (start index) and `count` (number of records) parameters. The maximum record window is 100,000 (`sindex + count ≤ 100000`).
+
+    ### Rate Limiting
+
+    If too many requests are made within the threshold timeframe, a `429` error is returned. Contact support for current limits.
+
+servers:
+  - url: https://api.birdeye.com/resources
+    description: Production
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 1161
+        message:
+          type: string
+          example: Invalid API key
+
+    CreateBusinessRequest:
+      type: object
+      required:
+        - businessName
+        - zip
+        - phone
+      properties:
+        businessName:
+          type: string
+          description: Name of the business to be added
+          example: The Business Name
+        zip:
+          type: string
+          description: Postal code of the business location
+          example: "32323"
+        type:
+          type: string
+          description: "Type of the business. Valid values: Business, Enterprise-Location, Enterprise-Product, Reseller, or a custom hierarchy type. Default: Business"
+          example: Business
+        phone:
+          type: string
+          description: Phone number of the business
+          example: "4032365164"
+        entityCategory:
+          type: string
+          description: "Category of the business entity. Valid values: physical_location, provider. Default: physical_location"
+          enum: [physical_location, provider]
+          example: physical_location
+        countryCode:
+          type: string
+          description: 2-character country code. Mandatory for non-US locations.
+          example: US
+        aggrOptions:
+          type: integer
+          description: "Aggregation options. 0 = Disable Search Business, 1 = Enable Search Business. Default: 1"
+          enum: [0, 1]
+          example: 1
+
+    CreateBusinessResponse:
+      type: object
+      properties:
+        businessId:
+          type: integer
+          description: ID of the created business
+          example: 653356544
+
+    SearchBusinessRequest:
+      type: object
+      properties:
+        searchStr:
+          type: string
+          description: Search criteria — business name or number. Partial name matching is supported.
+          example: Thurston Rosenlund
+        sortBy:
+          type: string
+          description: "Sort field. Valid values: name, createdAt, createdBy. Default: createdAt"
+          enum: [name, createdAt, createdBy]
+          example: createdAt
+        sortOrder:
+          type: string
+          description: "Sort direction. Default: DESC"
+          enum: [ASC, DESC]
+          example: ASC
+        startIndex:
+          type: integer
+          description: Starting index for pagination
+          example: 0
+        pageSize:
+          type: integer
+          description: Number of results per page. Default is 25.
+          example: 25
+
+    SearchBusinessResponse:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of search matches
+          example: 101
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Business name
+                example: Thurston Rosenlund
+              status:
+                type: string
+                description: Business status (active, demo, paid, suspended, etc.)
+                example: active
+              createdAt:
+                type: string
+                description: Date the business or location was created
+                example: May 01, 2013
+              createdBy:
+                type: string
+                description: Full name of the user who created the business
+                example: Sam Bilings
+              businessNumber:
+                type: string
+                description: Unique number associated with the business or location
+                example: "169744180007807"
+              type:
+                type: string
+                description: Account type (SMB, enterprise, reseller)
+                example: Business
+
+    GetBusinessResponse:
+      type: object
+      properties:
+        businessId:
+          type: integer
+          example: 12345678
+        name:
+          type: string
+          example: Dieci Lifestyle Spa
+        alias:
+          type: string
+          example: Dieci Lifestyle Spa - Livingston, NJ
+        emailId:
+          type: string
+          example: info@example.com
+        phone:
+          type: string
+          example: "(973) 716-0101"
+        fax:
+          type: string
+          example: "(973) 716-0102"
+        websiteUrl:
+          type: string
+          example: http://www.diecispa.com/
+        description:
+          type: string
+          example: Specialties - Bridal Services, Massages, Facials
+        services:
+          type: string
+          example: Beauty Salon, Hair Spa
+        keywords:
+          type: string
+          example: Hair Salons, Day Spas, Beauty Salon
+        logoUrl:
+          type: string
+          example: https://example.com/logo.jpg
+        coverImageUrl:
+          type: string
+          example: https://example.com/cover.jpg
+        timezone:
+          type: string
+          example: Pacific Standard Time
+        languages:
+          type: array
+          items:
+            type: string
+          example: [English, Spanish]
+        isServiceAreaProvider:
+          type: string
+          enum: [Yes, No]
+          example: No
+        serviceAreas:
+          type: array
+          items:
+            type: object
+            properties:
+              description:
+                type: string
+                example: New York, NY, USA
+              placeId:
+                type: string
+                example: ChIJ9YahAOasdwRSt7QSj
+        payment:
+          type: string
+          example: Visa, MasterCard, American Express
+        hoursOfOperations:
+          type: array
+          items:
+            type: object
+            properties:
+              day:
+                type: integer
+                description: 0=Monday, 1=Tuesday, ... 6=Sunday
+                example: 0
+              isOpen:
+                type: integer
+                description: 0=Closed, 1=Open
+                example: 1
+              workingHours:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    startHour:
+                      type: string
+                      example: "09:00"
+                    endHour:
+                      type: string
+                      example: "18:00"
+              comment:
+                type: string
+                example: By appointment only
+        working24x7:
+          type: integer
+          description: 0=false, 1=true
+          example: 0
+        location:
+          type: object
+          properties:
+            address1:
+              type: string
+              example: 90 W Mount Pleasant Ave
+            address2:
+              type: string
+              example: Suite 102
+            city:
+              type: string
+              example: Livingston
+            state:
+              type: string
+              example: NJ
+            zip:
+              type: string
+              example: "07039"
+            countryCode:
+              type: string
+              example: US
+        reviewCount:
+          type: integer
+          example: 53
+        avgRating:
+          type: number
+          example: 4.9
+        status:
+          type: string
+          example: active
+        type:
+          type: string
+          example: Business
+        category:
+          type: string
+          example: Hair Salons, Day Spas, Beauty Salon
+        socialProfileURLs:
+          type: object
+          properties:
+            facebookUrl:
+              type: string
+              example: http://www.facebook.com/example
+            linkedInUrl:
+              type: string
+              example: https://linkedin.com/company/example
+            youTubeUrl:
+              type: string
+              example: https://www.youtube.com/channel/example
+        isSEOEnabled:
+          type: boolean
+          example: true
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: Business
+    description: APIs for creating, searching, and retrieving business information
+
+paths:
+  /v1/signup/reseller/subaccount:
+    post:
+      tags:
+        - Business
+      summary: Create a Business
+      operationId: createBusiness
+      description: Creates a new business under a reseller account.
+      parameters:
+        - name: rid
+          in: query
+          required: true
+          description: ID of the reseller
+          schema:
+            type: integer
+          example: 12334667201
+        - name: email_id
+          in: query
+          required: true
+          description: Business email address
+          schema:
+            type: string
+          example: sample@birdeye.com
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBusinessRequest"
+            example:
+              businessName: The Business Name
+              zip: "32323"
+              type: Business
+              phone: "4032365164"
+              entityCategory: physical_location
+              countryCode: US
+              aggrOptions: 1
+      responses:
+        "200":
+          description: Business created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateBusinessResponse"
+              example:
+                businessId: 653356544
+        "400":
+          description: Bad request — missing or invalid parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized — invalid or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Reseller not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /v1/business/{businessNumber}/search:
+    post:
+      tags:
+        - Business
+      summary: Search Business
+      operationId: searchBusiness
+      description: Search for a business by name or number under a parent account. Partial name matching is supported.
+      parameters:
+        - name: businessNumber
+          in: path
+          required: true
+          description: Long ID of the business under which to search
+          schema:
+            type: integer
+          example: 169744180007807
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SearchBusinessRequest"
+            example:
+              pageSize: 25
+              searchStr: Thurston Rosenlund
+              sortBy: createdAt
+              sortOrder: ASC
+              startIndex: 0
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchBusinessResponse"
+              example:
+                totalCount: 44
+                accounts:
+                  - name: Thurston Rosenlund
+                    status: suspended
+                    createdAt: May 01, 2013
+                    createdBy: Sam Bilings
+                    businessNumber: "396982176121"
+                    type: Business
+                  - name: Aspen Springs Dental
+                    status: paid
+                    createdAt: May 20, 2013
+                    businessNumber: "106026111239"
+                    type: Business
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /v1/business/{business_id}:
+    get:
+      tags:
+        - Business
+      summary: Get Business
+      operationId: getBusiness
+      description: Get business information including product features and profile details.
+      parameters:
+        - name: business_id
+          in: path
+          required: true
+          description: ID of the business
+          schema:
+            type: string
+          example: "12345678"
+      responses:
+        "200":
+          description: Business details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetBusinessResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Business not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
