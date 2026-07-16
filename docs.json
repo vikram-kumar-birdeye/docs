@@ -15,6 +15,7 @@
         "groups": [
           {
             "group": "Business",
+            "collapsed": true,
             "pages": [
               "api-reference/business/create-business",
               "api-reference/business/search-business",
